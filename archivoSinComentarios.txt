@@ -1,0 +1,24 @@
+|> 
+    INIFUNC 
+        FUNC ENT factorial{ENT n}[ 
+            SI{n <= 1}[ 
+                RET 1# 
+            ]SINO[ 
+                RET n*factorial{n-1}# 
+            ] 
+        ]
+    FINFUNC 
+    INIVAR 
+        ENT numero#
+        ENT resultado# 
+    FINVAR 
+    INIEJEC 
+        
+        
+        CONESC{"Ingresa un numero:"}# 
+        numero = CONLEER{}#
+        resultado = factorial{numero}# 
+        CONESC{"El 	factorial 	de: 	"+numero+" 	es: 
+        "+resultado}# 
+    FINEJEC 
+<| 

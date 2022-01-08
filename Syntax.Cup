@@ -1,0 +1,106 @@
+package codigo;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal T_dato, Cadena, If, Elseif, Else, While, For, Igual, Suma, Resta, Multiplicacion, Division, Modulo, INIFUNC, FINFUNC, FUNC, RET, CLASE, INIOBJ, NVO, MISM, INIVAR, FINVAR, INIEJECT, FINEJECT, Accerder, Op_logico, Op_releacional, Op_atribucion, Op_incremento, Op_booleano, Line, Fin_de_linea, Inicio_de_programa, Fin_de_programa, Inicio_de_delimitador_de_bloque, Fin_de_delimitador_de_bloque, Inicio_de_delimitador_de_argumentos, Fin_de_delimitador_de_argumentos, Identificador, Numero, ERROR
+non terminal INICIO, SENTENCIA, DECLARACION, DECLARACION_FOR, IF, IF_ELSE,
+    WHILE, DO_WHILE, FOR, SENTENCIA_BOOLEANA, SENTENCIA_FOR;
+
+start with INICIO;
+
+INICIO ::= 
+    Inicio_de_programa INIFUNC SENTENCIA FINFUNC INIVAR SENTENCIA FINVAR INIEJEC SENTENCIA FINEJEC Fin_de_programa | 
+    Inicio_de_programa INIFUNC FINFUNC INIVAR FINVAR INIEJEC SENTENCIA FINEJEC Fin_de_programa
+    ;
+SENTENCIA ::= 
+    SENTENCIA DECLARACION |
+    DECLARACION |
+    SENTENCIA SI | 
+    SI |
+    SENTENCIA OSI |
+    OSI |
+    SENTENCIA MIENTRAS |
+    MIENTRAS |
+    SENTENCIA HASTA |
+    HASTA
+;
+DECLARACION ::= 
+    T_dato Identificador Fin_de_linea | 
+    T_dato Identificador Op_atribucion Numero Fin_de_linea |
+    T_dato Identificador Igual Numero Fin_de_linea |
+    T_dato Identificador Op_incremento Fin_de_linea | 
+    T_dato Op_incremento Identificador Fin_de_linea | 
+    Cadena Identificador Op_atribucion Comillas Comillas Fin_de_linea |
+    Cadena Identificador Igual Comillas Comillas Fin_de_linea |
+    Cadena Identificador Op_atribucion Comillas Identificador Comillas Fin_de_linea |
+    Cadena Identificador Igual Comillas Identificador Comillas 
+;
+
+SENTENCIA_BOOLEANA ::= 
+    Op_booleano | 
+    Identificador Op_relacional Op_booleano |
+    Identificador Op_relacional Numero |
+    Identificador Op_relacional Identificador |
+    Identificador Op_relacional Comillas Comillas |
+    Identificador Op_relacional Comillas Identificador Comillas
+;
+
+SI ::= SI Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque
+;
+
+OSI ::= SI Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque
+        OSI Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque
+;
+
+SINO ::= SI Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque
+        OSI Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque;
+        SINO Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque
+;
+
+MIENTRAS ::= MIENTRAS Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                              SENTENCIA 
+                      Inicio_de_delimitador_de_bloque
+;
+
+DO_WHILE ::= Do Llave_a SENTENCIA Llave_c While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c P_coma
+;
+
+HASTA ::= HASTA Inicio_de_delimitador_de_argumentos SENTENCIA_HASTA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA
+                Inicio_de_delimitador_de_bloque
+;
+SENTENCIA_HASTA ::=
+    T_dato Identificador Igual Fin_de_linea SENTENCIA_BOOLEANA Fin_de_linea DECLARACION_FOR |
+    Identificador Igual Numero Fin_de_linea SENTENCIA_BOOLEANA Fin_de_linea DECLARACION_FOR
+;
+
+DECLARACION_HASTA ::= 
+    Identificador Op_atribucion Numero |
+    Identificador Op_incremento | 
+    Op_incremento Identificador
+;

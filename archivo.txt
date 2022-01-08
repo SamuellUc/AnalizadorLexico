@@ -1,0 +1,11 @@
+|>
+    INIFUNC 
+    FINFUNC 
+    INIVAR
+     
+    FINVAR 
+    INIEJEC
+
+   ENT n= 2#
+    FINEJEC 
+<|

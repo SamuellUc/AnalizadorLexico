@@ -1,0 +1,164 @@
+package codigo;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal T_dato, Cadena, Comillas, Igual, Suma, 
+Resta, Multiplicacion, Division, Modulo, INIFUNC, FINFUNC, RET, INIOBJ, MISM, INIVAR, FINVAR, INIEJEC, FINEJEC, Op_logico, 
+Op_relacional, 
+Op_atribucion, Op_incremento, Op_booleano, Line, Fin_de_linea, Inicio_de_programa, 
+Fin_de_programa, Inicio_de_delimitador_de_bloque, Fin_de_delimitador_de_bloque, 
+Inicio_de_delimitador_de_argumentos, Fin_de_delimitador_de_argumentos, Identificador, Numero, ERROR;
+
+non terminal INICIO, SENTENCIA, DECLARACION, DECLARACION_HASTA, SI, SINO, OSI, CLASE, FUNC, NVO, ACCEDER,
+    MIENTRAS, HASTA, SENTENCIA_BOOLEANA, SENTENCIA_HASTA;
+
+start with INICIO;
+
+/*Definicion del cuerpo del programa*/
+INICIO ::= Inicio_de_programa INIFUNC SENTENCIA FINFUNC INIVAR SENTENCIA FINVAR INIEJEC SENTENCIA FINEJEC Fin_de_programa | 
+    Inicio_de_programa INIFUNC FINFUNC INIVAR FINVAR INIEJEC SENTENCIA FINEJEC Fin_de_programa
+    ;
+
+/*Definicion de como se hace una sentencias
+SENTENCIA ::= 
+    SENTENCIA DECLARACION |
+    DECLARACION |
+    SENTENCIA SI | 
+    SI |
+    SENTENCIA OSI |
+    OSI |
+    SENTENCIA MIENTRAS |
+    MIENTRAS |
+    SENTENCIA HASTA |
+    HASTA |
+    CLASE |
+    FUNC |
+    SENTENCIA_FUNC |
+    ACCEDER
+;
+
+/*Definicion de como se hace una declaracion*/
+DECLARACION ::= 
+    T_dato Identificador Fin_de_linea | 
+    T_dato Identificador Op_atribucion Numero Fin_de_linea |
+    T_dato Identificador Igual Numero Fin_de_linea |
+    T_dato Identificador Op_incremento Fin_de_linea |
+
+    Identificador Igual Identificador Suma Indentificador Fin_de_linea |
+
+    Identificador Inicio_de_delimitador_de_argumentos Numero Fin_de_delimitador_de_argumentos Fin_de_linea |
+    Identificador Inicio_de_delimitador_de_argumentos Identificador Fin_de_delimitador_de_argumentos Fin_de_linea |
+    
+    Identificador Indentificador Fin_de_linea |
+    Inicio_de_delimitador_de_argumentos T_dato Identificador Fin_de_delimitador_de_argumentos |
+    T_dato Inicio_de_delimitador_de_argumento Identificador Multiplicacion Indetificador Suma Comillas Identificador Comillas Fin_de_delimitador_argumentos Fin_de_linea |
+    T_dato Inicio_de_delimitador_de_argumento Comillas Identificador Comillas Fin_de_delimitador_argumentos Fin_de_linea |
+
+ 
+    Cadena Identificador Op_atribucion Comillas Comillas Fin_de_linea |
+    Cadena Identificador Igual Comillas Comillas Fin_de_linea |
+    Cadena Identificador Op_atribucion Comillas Identificador Comillas Fin_de_linea |
+    Cadena Identificador Igual Comillas Identificador Comillas |
+;
+
+/*Definicion de una sentencia booleana*/
+SENTENCIA_BOOLEANA ::= 
+    Op_booleano | 
+    Identificador Op_relacional Op_booleano |
+    Identificador Op_relacional Numero |
+    Identificador Op_relacional Identificador |
+    Identificador Op_relacional Comillas Comillas |
+    Identificador Op_relacional Comillas Identificador Comillas
+;
+
+
+/*Definicion de como se hace un if*/
+SI ::= SI Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque
+;
+
+/*Definicion de como se hace un else if*/
+OSI ::= SI Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque
+        OSI Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque
+;
+
+/*Definicion de como se hace un else*/
+SINO ::= SI Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque
+        OSI Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque
+        SINO Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA 
+          Inicio_de_delimitador_de_bloque
+;
+
+/*Definicion de como se hace un while*/
+MIENTRAS ::= MIENTRAS Inicio_de_delimitador_de_argumentos SENTENCIA_BOOLEANA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                              SENTENCIA 
+                      Inicio_de_delimitador_de_bloque
+;
+
+/*Definicion de como se hace un for*/
+HASTA ::= HASTA Inicio_de_delimitador_de_argumentos SENTENCIA_HASTA Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque 
+                    SENTENCIA
+                Inicio_de_delimitador_de_bloque
+;
+/*Defincion de la sentencia que lleva el for*/
+SENTENCIA_HASTA ::=
+    DECLARACION SENTENCIA_BOOLEANA Fin_de_linea DECLARACION_HASTA |
+    Identificador Igual Numero Fin_de_linea SENTENCIA_BOOLEANA Fin_de_linea DECLARACION_HASTA
+;
+/*Definicion de la declaracion que hace que incremente el for
+DECLARACION_HASTA ::= S
+    Identificador Op_atribucion Numero |
+    Identificador Op_incremento | 
+    Op_incremento Identificador
+;
+
+
+
+/*Definicion de como se crea una clase*/
+CLASE ::= CLASE Identificador Inicio_de_delimitador_de_bloque
+                    DECLARACION
+                    INIOBJ
+                    FUNC
+                Fin_de_delimitador_de_bloque
+;
+/*Definicion de la declaracion de una funcion*/
+FUNC ::= FUNC SENTENCIA_FUNC Inicio_de_delimitador_de_bloque
+                    SENTENCIA
+                Fin_de_delimitador_de_bloque
+;
+/*Definicion de la sentencia que lleva la funcion*/
+SENTENCIA_FUNC ::= T_dato Identificador Inicio_de_delimitador_de_argumentos T_dato Identificador Fin_de_delimitador_de_argumentos | 
+                   T_dato Identificador Inicio_de_delimitador_de_argumentos T_dato Fin_de_delimitador_de_argumentos
+;
+
+/*Definicion de como se crea objetos*/
+NVO ::= Identificador Igual NVO DECLARACION;
+
+/*Definicion de como susar el atributo acceder*/
+ACCEDER = Identificador Acceder DECLARACION;
+
+
+
