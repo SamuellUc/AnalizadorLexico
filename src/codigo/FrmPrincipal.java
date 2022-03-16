@@ -313,9 +313,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     case Accerder:
                         resultado += "  <Reservada acceder> \t" + lexer.lexeme + "\n";
                         break;
-                    case Op_logico:
+                    case Or:
                         resultado += "  <Operador logico>\t " + lexer.lexeme + "\n";
                         break;
+                    case And:
+                        resultado += "  <Operador logico>\t " + lexer.lexeme + "\n";
+                        break;
+                    case Not:
+                        resultado += "  <Operador logico>\t " + lexer.lexeme + "\n";
+                        break;
+                    case Diferencia_logica:
+                        resultado += "  <Operador logico>\t " + lexer.lexeme + "\n";
+                        break;
+                    case Igualdad_logica:
+                        resultado += "  <Operador logico>\t " + lexer.lexeme + "\n";
+                        break; 
                     case Op_incremento:
                         resultado += "  <Operador incremento>\t " + lexer.lexeme + "\n";
                         break;
