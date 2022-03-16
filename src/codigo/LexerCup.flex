@@ -92,16 +92,21 @@ FINEJEC {return new Symbol(sym.FINEJEC, yychar, yyline, yytext());}
 ("$") {return new Symbol(sym.Op_accerder, yychar, yyline, yytext());}
 
 /*Operadores logicos*/
-("|" | "&" | "!" | "=/=") {return new Symbol(sym.Op_logico, yychar, yyline, yytext());}
+
+("|") {return new Symbol(sym.Or, yychar, yyline, yytext());}
+("&") {return new Symbol(sym.And, yychar, yyline, yytext());}
+("!") {return new Symbol(sym.Not, yychar, yyline, yytext());}
+("=/=") {return new Symbol(sym.Diferencia_logica, yychar, yyline, yytext());}
+(":=") {return new Symbol(sym.Igualdad_logica, yychar, yyline, yytext());}
+
+/* Operadores Incremento y decremento */
+( "++" | "--" ) {return new Symbol(sym.Op_incremento, yychar, yyline, yytext());}
 
 /*Operadores relacionales*/
 ( ">" | "<" | "==" | "!=" | ">=" | "<=" | "<<" | ">>" ) {return new Symbol(sym.Op_relacional, yychar, yyline, yytext());}
 
 /* Operadores Atribucion */
 ( "+=" | "=" | "-="  | "*=" | "/=" | "%=" ) {return new Symbol(sym.Op_atribucion, yychar, yyline, yytext());}
-
-/* Operadores Incremento y decremento */
-( "++" | "--" ) {return new Symbol(sym.Op_incremento, yychar, yyline, yytext());}
 
 /*Operadores Booleanos*/
 (VER | FAL) {return new Symbol(sym.Op_boleano, yychar, yyline, yytext());}
