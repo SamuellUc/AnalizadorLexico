@@ -20,7 +20,14 @@ espacio=[ ,\t,\r]+
 ( "\"" ) {lexeme=yytext(); return Comillas;}
 
 /*Tipos de datos*/
-(ENT | DEC | CAR | BOOL | VAC | NULO | CONLEER | CONESC) {lexeme=yytext(); return T_dato;}
+( ENT ) {lexeme=yytext(); return Int;}
+( DEC ) {lexeme=yytext(); return Double;}
+( CAR ) {lexeme=yytext(); return Char;}
+( BOOL ) {lexeme=yytext(); return Booleano;}
+( VAC ) {lexeme=yytext(); return Void;}
+( NULO ) {lexeme=yytext(); return Null;}
+( CONLEER ) {lexeme=yytext(); return Lectura;}
+( CONESC ) {lexeme=yytext(); return Escritura;}
 
 /* Tipo de dato String */
 ( String ) {lexeme=yytext(); return Cadena;}
@@ -79,7 +86,6 @@ FINEJEC {lexeme=yytext(); return FINEJEC;}
 "$" {lexeme=yytext(); return Accerder;}
 
 /*Operadores logicos*/
-
 ("|") {lexeme=yytext(); return Or;}
 ("&") {lexeme=yytext(); return And}
 ("!") {lexeme=yytext(); return Not}
@@ -93,7 +99,8 @@ FINEJEC {lexeme=yytext(); return FINEJEC;}
 ( "+=" | "-="  | "*=" | "/=" | "%=" ) {lexeme = yytext(); return Op_atribucion;}
 
 /* Operadores Incremento y decremento */
-( "++" | "--" ) {lexeme = yytext(); return Op_incremento;}
+( "++" ) {lexeme = yytext(); return Op_incremento;}
+( "--" ) {lexeme = yytext(); return Op_decremento;}
 
 /*Operadores Booleanos*/
 (VER | FAL)      {lexeme = yytext(); return Op_booleano;}
