@@ -331,6 +331,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     case Op_incremento:
                         resultado += "  <Operador incremento>\t " + lexer.lexeme + "\n";
                         break;
+                        case Op_decremento:
+                        resultado += "  <Operador decremento>\t " + lexer.lexeme + "\n";
+                        break;
                     case Op_relacional:
                         resultado += "  <Operador relacional>\t " + lexer.lexeme + "\n";
                         break;

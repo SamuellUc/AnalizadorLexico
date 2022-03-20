@@ -45,6 +45,7 @@ public enum Tokens {
     Op_relacional,
     Op_atribucion,
     Op_incremento,
+    Op_decremento,
     Op_booleano,
     Line,
     Fin_de_linea,

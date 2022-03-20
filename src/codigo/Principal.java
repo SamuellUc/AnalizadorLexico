@@ -16,9 +16,9 @@ public class Principal {
     public static void generar(String ruta1, String ruta2, String[] rutaS) throws IOException, Exception{
         File archivo;
         archivo = new File(ruta1);
-        jflex.Main.generate(archivo);
+        JFlex.Main.generate(archivo);
         archivo = new File(ruta2);
-        jflex.Main.generate(archivo);
+        JFlex.Main.generate(archivo);
         java_cup.Main.main(rutaS);
         
         Path rutaSym = Paths.get("C:/Users/Samue/Documents/NetBeansProjects/AnalizadorLexico/src/codigo/sym.java");

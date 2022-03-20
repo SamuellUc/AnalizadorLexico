@@ -100,7 +100,8 @@ FINEJEC {return new Symbol(sym.FINEJEC, yychar, yyline, yytext());}
 (":=") {return new Symbol(sym.Igualdad_logica, yychar, yyline, yytext());}
 
 /* Operadores Incremento y decremento */
-( "++" | "--" ) {return new Symbol(sym.Op_incremento, yychar, yyline, yytext());}
+( "++" ) {return new Symbol(sym.Op_incremento, yychar, yyline, yytext());}
+( "--" ) {return new Symbol(sym.Op_decremento, yychar, yyline, yytext());}
 
 /*Operadores relacionales*/
 ( ">" | "<" | "==" | "!=" | ">=" | "<=" | "<<" | ">>" ) {return new Symbol(sym.Op_relacional, yychar, yyline, yytext());}

@@ -1,11 +1,11 @@
-|>
+|> 
     INIFUNC 
     FINFUNC 
-    INIVAR
-     
+    INIVAR 
     FINVAR 
-    INIEJEC
-
-   ENT n= 2#
+    INIEJEC 
+ 	SI{1>2}[
+	1++
+	]
     FINEJEC 
 <|
