@@ -23,14 +23,11 @@ espacio=[ ,\t,\r]+
 ( ENT ) {lexeme=yytext(); return Int;}
 ( DEC ) {lexeme=yytext(); return Double;}
 ( CAR ) {lexeme=yytext(); return Char;}
+( CAD ) {lexeme=yytext(); return String;}
 ( BOOL ) {lexeme=yytext(); return Booleano;}
 ( VAC ) {lexeme=yytext(); return Void;}
-( NULO ) {lexeme=yytext(); return Null;}
 ( CONLEER ) {lexeme=yytext(); return Lectura;}
 ( CONESC ) {lexeme=yytext(); return Escritura;}
-
-/* Tipo de dato String */
-( String ) {lexeme=yytext(); return Cadena;}
 
 /* Palabra reservada If */
 ( SI ) {lexeme=yytext(); return If;}
@@ -103,7 +100,8 @@ FINEJEC {lexeme=yytext(); return FINEJEC;}
 ( "--" ) {lexeme = yytext(); return Op_decremento;}
 
 /*Operadores Booleanos*/
-(VER | FAL)      {lexeme = yytext(); return Op_booleano;}
+( VER ) {lexeme = yytext(); return True;}
+( FAL ) {lexeme = yytext(); return False;}
 
 /*Salto de linea*/
 ("\n") {return Line;}
@@ -119,7 +117,12 @@ FINEJEC {lexeme=yytext(); return FINEJEC;}
 /*Identificador*/
 {L}({L}|{D})* {lexeme=yytext(); return Identificador;}
 
-/*Numero*/
-("(-"{D}+")")|{D}+ {lexeme=yytext(); return Numero;}
+/*Regex Tipos de datos*/
+("(-"{D}")")|{D} {lexeme=yytext(); return Numero;}
+^({D}([.]{D})?)$ {lexeme=yytext(); return NumeroDecimal;}
+[a-zA-Z] {lexeme=yytext(); return Caracter;}
+{L}({L}|{D})* {lexeme=yytext(); return Caracteres;}
+
+
  . {return ERROR;}
 

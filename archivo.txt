@@ -1,11 +1,11 @@
 |> 
-    INIFUNC 
-    FINFUNC 
-    INIVAR 
-    FINVAR 
-    INIEJEC 
- 	SI{1>2}[
-	1++
-	]
-    FINEJEC 
+INIFUNC  
+FINFUNC 
+INIVAR 
+ENT hola = 1#
+ENT holaw = 1#
+FINVAR 
+INIEJEC 
+hola+holaw#
+FINEJEC 
 <|

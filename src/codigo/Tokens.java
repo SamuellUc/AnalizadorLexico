@@ -10,8 +10,14 @@ package codigo;
  * @author Samue
  */
 public enum Tokens {    
-    T_dato,
-    Cadena,
+    Int,
+    Double,
+    Char,
+    Booleano,
+    Void,
+    Lectura,
+    Escritura,
+    String,
     Comillas,
     If,
     Elseif,
@@ -46,7 +52,8 @@ public enum Tokens {
     Op_atribucion,
     Op_incremento,
     Op_decremento,
-    Op_booleano,
+    True,
+    False,
     Line,
     Fin_de_linea,
     Inicio_de_programa,
@@ -57,5 +64,8 @@ public enum Tokens {
     Fin_de_delimitador_de_argumentos,
     Identificador,
     Numero,
+    NumeroDecimal,
+    Caracter,
+    Caracteres,
     ERROR
 }

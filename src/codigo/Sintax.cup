@@ -1,4 +1,4 @@
-package codigo;
+ package codigo;
 
 import java_cup.runtime.Symbol;
 
@@ -15,36 +15,139 @@ parser code
 }
 :};
 
-terminal T_dato, Cadena, Comillas, Igual, Suma, 
-Resta, Multiplicacion, Division, Modulo,FUNC, INIFUNC, FINFUNC,INIOBJ, RET, MISM, INIVAR, FINVAR, INIEJEC, FINEJEC, Or, And, Not,Diferencia_logica,Igualdad_logica, 
-Op_relacional, 
-Op_atribucion, Op_incremento, Op_decremento, Op_booleano, Line, Fin_de_linea, Inicio_de_programa, 
-Fin_de_programa, Inicio_de_delimitador_de_bloque, Fin_de_delimitador_de_bloque, 
-Inicio_de_delimitador_de_argumentos, Fin_de_delimitador_de_argumentos, Identificador, Numero, ERROR;
+terminal Int,
+    Double,
+    Char,
+    Booleano,
+    Void,
+    Lectura,
+    Escritura,
+    String,
+    Comillas,
+    If,
+    Elseif,
+    Else,
+    While,
+    For,
+    Igual,
+    Suma,
+    Resta,
+    Multiplicacion,
+    Division,
+    Modulo,
+    INIFUNC,
+    FINFUNC,
+    FUNC,
+    RET,
+    CLASE,
+    INIOBJ,
+    NVO,
+    MISM,
+    INIVAR,
+    FINVAR,
+    INIEJEC,
+    FINEJEC,
+    Accerder,
+    Or,
+    And,
+    Not,
+    Diferencia_logica,
+    Igualdad_logica,
+    Op_relacional,
+    Op_atribucion,
+    Op_incremento,
+    Op_decremento,
+    True,
+    False,
+    Fin_de_linea,
+    Inicio_de_programa,
+    Fin_de_programa,
+    Inicio_de_delimitador_de_bloque,
+    Fin_de_delimitador_de_bloque,
+    Inicio_de_delimitador_de_argumentos,
+    Fin_de_delimitador_de_argumentos,
+    Identificador,
+    Numero,
+    NumeroDecimal,
+    Caracter,
+    Caracteres
+   
+;
 
-non terminal INICIO,DECLARAR_FUNCION,DECLARAR_VARIABLES,SENTENCIAS,ASIGNACION,OPERACION_SUMA,OPERACION_RESTA,OPERACION_DIVISION,OPERACION_MULTIPLICACION,OPERACION_MODULO,OPERACION_OR,OPERACION_AND,OPERACION_NOT,OPERACION_DIFERENCIA_LOGICA,OPERACION_IGUALDAD_LOGICA,OPERACION_RELACIONAL,OPERACION_DE_ATRIBUCION,OPERACION_BOOLEANA,OPERACION_DECREMENTO_INCREMENTO,OPERACIONES,SENTENCIA_VAC,SENTENCIA_SI,SI,SENTENCIA_OSI,OSI,SENTENCIA_SINO,SINO,SENTENCIA_MIENTRAS,MIENTRAS,SENTENCIA_HASTA,HASTA,SENTENCIA_FUNC,SENTENCIA_CONLEER,CONESC,SENTENCIA_CONESC,SENTENCIA_INIOBJ,LLAMADOS,CUERPO_FUNCION,CUERPO_SI,CUERPO_OSI,CUERPO_SINO;
+non terminal INICIO,
+            VARIABLE_ENT,
+            VARIABLE_DEC,
+            VARIABLE_CAR,
+            VARIABLE_BOOL,
+            VARIABLE_OBJ,
+            OPERACION_SUMA,
+            OPERACION_RESTA,
+            OPERACION_DIVISION,
+            OPERACION_MULTIPLICACION,
+            OPERACION_MODULO,
+            OPERACION_OR,
+            OPERACION_AND,
+            OPERACION_NOT,
+            OPERACION_DIFERENCIA_LOGICA,
+            OPERACION_IGUALDAD_LOGICA,
+            OPERACION_RELACIONAL,
+            OPERACION_DE_ATRIBUCION,
+            OPERACION_BOOLEANA,
+            OPERACION_DECREMENTO_INCREMENTO,
+            DECLARACION_FUNC,
+            FUNC_ENT,
+            FUNC_DEC,
+            FUNC_CAR,
+            FUNC_CAD,
+            FUNC_BOOL,
+            FUNC_VAC,
+            DEF_CLASS,
+            VARIABLES,
+            FUNCIONES,
+            RETURN,
+            DEF_INIOBJ,
+            DEF_MISM,
+            DEF_CONESC,
+            DEF_CONLEER,
+            DEF_IGUALDAD,
+            DEF_INI_OBJ,
+            DEF_ACCEDER,
+            SENTECIA,
+            OPE_ARITMETICAS,
+            OPE_LOGICAS,
+            IF,
+            CUERPO,
+            OSI,
+            SINO,
+            MIENTRAS,
+            HASTA,
+            DEF_LLAMADO_FUNC,
+            CICLOS,
+            RED_FUNC
+
+;
 
 start with INICIO;
 
 INICIO::= Inicio_de_programa 
                 INIFUNC
-                    DECLARAR_FUNCION
+                    FUNCIONES
                 FINFUNC
                 INIVAR
-                    DECLARAR_VARIABLES
+                    VARIABLES
                 FINVAR
                 INIEJEC
-                    SENTENCIAS
+                    CUERPO
                 FINEJEC
             Fin_de_programa |
             Inicio_de_programa 
                 INIFUNC
                 FINFUNC
                 INIVAR
-                    DECLARAR_VARIABLES
+                    VARIABLES
                 FINVAR
                 INIEJEC
-                    SENTENCIAS
+                    CUERPO
                 FINEJEC
             Fin_de_programa |
             Inicio_de_programa 
@@ -53,96 +156,222 @@ INICIO::= Inicio_de_programa
                 INIVAR
                 FINVAR
                 INIEJEC
-                    SENTENCIAS
+                    CUERPO
                 FINEJEC
             Fin_de_programa |
-
 ;
 
- /* ENT numero# | ENT numero = 2# | CAR letra = h# | Carro miCarro# */
-ASIGNACION::=   T_dato Identificador Fin_de_linea | 
-                T_dato Identificador Igual Numero Fin_de_linea |
-                T_dato Identificador Igual Identificador Fin_de_linea |
-                Identificador Identificador Fin_de_linea
-;
+/*Declaracion de variables*/
+    VARIABLES::= VARIABLE_BOOL | VARIABLE_CAR | VARIABLE_DEC | VARIABLE_ENT | VARIABLE_OBJ
+    ;
 
-DECLARAR_VARIABLES::= ASIGNACION;
+    VARIABLE_ENT::= Int Identificador Igual Numero Fin_de_linea |
+                    Int Identificador Fin_de_linea
+    ;
+    VARIABLE_DEC::= Double Identificador Igual NumeroDecimal Fin_de_linea |
+                        Double Identificador Fin_de_linea
+    ;
+    VARIABLE_CAR::= Char Identificador Igual Caracter Fin_de_linea |
+                    Char Identificador Fin_de_linea
+    ;
+    VARIABLE_BOOL::= Booleano Identificador Igual True Fin_de_linea |
+                    Booleano Identificador Igual False Fin_de_linea |
+                    Booleano Identificador Fin_de_linea  
+    ;
+    VARIABLE_OBJ::= Identificador Identificador Fin_de_linea
+    ;
 
 /*operaciones*/
 
-OPERACION_SUMA::= Numero Suma Numero;
-OPERACION_RESTA::= Numero Resta Numero;
-OPERACION_DIVISION::= Numero Division Numero;
-OPERACION_MULTIPLICACION::= Numero Multiplicacion Numero;
-OPERACION_MODULO::= Numero Modulo Numero;
+    /*Aritmetica*/
+        OPE_ARITMETICAS::= OPERACION_SUMA |
+                           OPERACION_RESTA |
+                           OPERACION_DIVISION |
+                           OPERACION_MULTIPLICACION |
+                           OPERACION_MODULO 
+        ;
+        OPERACION_SUMA::= Numero Suma Numero | 
+                          Numero Suma Identificador |
+                          Identificador Suma Numero |
+                          Identificador Suma Identificador
+        ;
+        OPERACION_RESTA::= Numero Resta Numero |
+                           Numero Resta Identificador |
+                           Identificador Resta Numero |
+                           Identificador Resta Identificador
+        ;
+        OPERACION_DIVISION::= Numero Division Numero |
+                              Numero Division Identificador |
+                              Identificador Division Numero |
+                              Identificador Division Identificador
+        ;
+        OPERACION_MULTIPLICACION::= Numero Multiplicacion Numero |
+                                    Numero Multiplicacion Identificador |
+                                    Identificador Multiplicacion Numero |
+                                    Identificador Multiplicacion Identificador
+        
+        ;
+        OPERACION_MODULO::= Numero Modulo Numero |
+                            Numero Modulo Identificador |
+                            Identificador Modulo Numero |
+                            Identificador Modulo Identificador
+        ;
 
-OPERACION_OR::= Numero Or Numero | 
-                Identificador Or Identificador;
-OPERACION_AND::= Numero And Numero | 
-                Identificador And Identificador;
-OPERACION_NOT::= Numero Not Numero | 
-                Identificador Not Identificador;
-OPERACION_DIFERENCIA_LOGICA::= Numero Diferencia_logica Numero | 
-                                Identificador Diferencia_logica Identificador;
-OPERACION_IGUALDAD_LOGICA::= Numero Igualdad_logica Numero | 
-                                Identificador Igualdad_logica Identificador;
+    /*Logica*/
+        OPE_LOGICAS::= OPERACION_AND |
+                       OPERACION_OR |
+                       OPERACION_NOT |
+                       OPERACION_DIFERENCIA_LOGICA |
+                       OPERACION_IGUALDAD_LOGICA
+        ;
+        OPERACION_OR::= Numero Or Numero | 
+                        Identificador Or Identificador;
+        OPERACION_AND::= Numero And Numero | 
+                        Identificador And Identificador;
+        OPERACION_NOT::= Numero Not Numero | 
+                        Identificador Not Identificador;
+        OPERACION_DIFERENCIA_LOGICA::= Numero Diferencia_logica Numero | 
+                                        Identificador Diferencia_logica Identificador;
+        OPERACION_IGUALDAD_LOGICA::= Numero Igualdad_logica Numero | 
+                                        Identificador Igualdad_logica Identificador;
 
-OPERACION_RELACIONAL::= Numero Op_relacional Numero |
-                        Identificador Op_relacional Identificador;
+    /*Relacionales*/
+        OPERACION_RELACIONAL::= Numero Op_relacional Numero |
+                                Identificador Op_relacional Identificador |
+                                Identificador Op_relacional Numero |
+                                Numero Op_relacional Identificador
+        ;
 
-OPERACION_DE_ATRIBUCION::= Op_atribucion Numero | Op_atribucion Identificador;
+    /*Atribucion*/
+        OPERACION_DE_ATRIBUCION::= Op_atribucion Numero | 
+                                   Op_atribucion Identificador
+        ;
 
-OPERACION_BOOLEANA::= Identificador Igual Op_booleano;
+    /*Booleana*/
+        OPERACION_BOOLEANA::= Identificador Igual True |
+                            Identificador Igual False
+        ;
 
-OPERACION_DECREMENTO_INCREMENTO::= Identificador Op_incremento | Identificador Op_decremento;
+    OPERACION_DECREMENTO_INCREMENTO::= Identificador Op_incremento | Identificador Op_decremento;
 
-OPERACIONES::= OPERACION_AND | OPERACION_BOOLEANA | OPERACION_DE_ATRIBUCION |
-                OPERACION_DIFERENCIA_LOGICA | OPERACION_DIVISION | OPERACION_IGUALDAD_LOGICA | OPERACION_MODULO | OPERACION_MULTIPLICACION | OPERACION_NOT | OPERACION_OR | OPERACION_RELACIONAL | OPERACION_RESTA | OPERACION_SUMA;
+                            /*Sentencias*/
+
+/* Funciones */
+    DECLARACION_FUNC::= Int Identificador | Double Identificador | Char Identificador | String Identificador | Booleano Identificador
+    ;
+
+    FUNCIONES::= FUNC_BOOL | FUNC_CAD | FUNC_CAR | FUNC_DEC | FUNC_ENT | FUNC_VAC
+    ;
+
+    RED_FUNC::= Identificador Inicio_de_delimitador_de_argumentos DECLARACION_FUNC  Fin_de_delimitador_de_argumentos                      Inicio_de_delimitador_de_bloque
+        CUERPO |
+        DEF_CONESC
+    Fin_de_delimitador_de_bloque
+    ;
+
+    FUNC_ENT::= FUNC Int RED_FUNC 
+    ;
+
+    FUNC_DEC::= FUNC Double RED_FUNC
+    ;
+
+    FUNC_CAR::= FUNC Char RED_FUNC
+    ;
+
+    FUNC_CAD::= FUNC String RED_FUNC
+    ;
+
+    FUNC_BOOL::= FUNC Booleano RED_FUNC
+    ;
+
+    FUNC_VAC::= FUNC Void RED_FUNC
+    ;
+
+    RETURN::= RET Identificador Fin_de_linea |
+              RET True Fin_de_linea |
+              RET False Fin_de_linea |
+              RET Numero Fin_de_linea |
+              RET NumeroDecimal Fin_de_linea |
+              RET Caracter Fin_de_linea |
+              RET Caracteres Fin_de_linea |
+              RET OPE_ARITMETICAS Inicio_de_delimitador_de_argumentos OPE_ARITMETICAS Fin_de_delimitador_de_argumentos Fin_de_linea
+              ;
+
+/* Clases */
+    DEF_CLASS::= CLASE Identificador Inicio_de_delimitador_de_bloque
+                VARIABLES
+                FUNCIONES
+    Fin_de_delimitador_de_bloque
+    ;
+
+    DEF_INIOBJ::= INIOBJ Inicio_de_delimitador_de_argumentos    DECLARACION_FUNC Fin_de_delimitador_de_argumentos Inicio_de_delimitador_de_bloque
+        DEF_MISM
+    Fin_de_delimitador_de_bloque
+    ;
+
+    DEF_MISM::= MISM Accerder DEF_IGUALDAD Identificador Fin_de_linea
+    ;
+
+    DEF_CONESC::= Escritura Inicio_de_delimitador_de_argumentos Identificador Fin_de_delimitador_de_argumentos Fin_de_linea |
+    Inicio_de_delimitador_de_argumentos Comillas Identificador Comillas Fin_de_delimitador_de_argumentos Fin_de_linea
+    ;
+
+    DEF_CONLEER::= DECLARACION_FUNC Igual Lectura Inicio_de_delimitador_de_argumentos Fin_de_delimitador_de_argumentos Fin_de_linea |
+    DEF_IGUALDAD Lectura Inicio_de_delimitador_de_argumentos Fin_de_delimitador_de_argumentos Fin_de_linea
+    ;
 
 
+/*Cuerpo de programa*/
 
-/*Sentencias*/
-    /*Sentencia void ===>   VAC hola {}*/
-SENTENCIA_VAC::= T_dato Identificador Inicio_de_delimitador_de_argumentos Fin_de_delimitador_de_argumentos;
+    DEF_IGUALDAD::= Identificador Igual
+    ;
 
-SENTENCIA_SI::= SI Inicio_de_delimitador_de_argumentos OPERACIONES Fin_de_delimitador_de_argumentos;
+    DEF_INI_OBJ::= DEF_IGUALDAD NVO Identificador Inicio_de_delimitador_de_argumentos Identificador Fin_de_delimitador_de_argumentos Fin_de_linea
+    ;
 
-SENTENCIA_OSI::= OSI Inicio_de_delimitador_de_argumentos OPERACIONES Fin_de_delimitador_de_argumentos;
+    DEF_LLAMADO_FUNC::= Identificador Inicio_de_delimitador_de_argumentos Numero Fin_de_delimitador_de_argumentos Fin_de_linea
+    ;
 
-SENTENCIA_SINO::= SINO Inicio_de_delimitador_de_argumentos OPERACIONES Fin_de_delimitador_de_argumentos;
+    DEF_ACCEDER::= Identificador Accerder Identificador Inicio_de_delimitador_de_argumentos Fin_de_delimitador_de_argumentos Fin_de_linea
+    ;
 
-SENTENCIA_MIENTRAS::= MIENTRAS Inicio_de_delimitador_de_argumentos OPERACIONES Fin_de_delimitador_de_argumentos;
-
-SENTENCIA_HASTA::= HASTA Inicio_de_delimitador_de_argumentos ASIGNACION Fin_de_linea OPERACIONES Fin_de_linea OPERACION_DECREMENTO_INCREMENTO  Fin_de_delimitador_de_argumentos;
-
-SENTENCIA_FUNC::= SENTENCIA_VAC | T_dato Identificador Inicio_de_delimitador_de_argumentos DECLARAR_VARIABLES Fin_de_delimitador_de_argumentos;
-
-
-
-
-/*Sentencia CONLEER ===>   CONLEER{}*/
-SENTENCIA_CONLEER::= T_dato Inicio_de_delimitador_de_argumentos Fin_de_delimitador_de_argumentos;
-
-    /*Sentencia CONESC ===>   CONESC {"Hola"}*/
-SENTENCIA_CONESC::= T_dato Inicio_de_delimitador_de_argumentos Comillas Identificador Comillas Fin_de_delimitador_de_argumentos;
-
-SENTENCIA_INIOBJ::= INIOBJ Inicio_de_delimitador_de_argumentos ASIGNACION Fin_de_delimitador_de_argumentos;
+    CUERPO::= OPE_ARITMETICAS | OPE_LOGICAS | OPERACION_RELACIONAL | OPERACION_BOOLEANA | OPERACION_DE_ATRIBUCION | RETURN | DEF_IGUALDAD DEF_CONLEER | DEF_IGUALDAD Identificador Inicio_de_delimitador_de_argumentos Identificador Fin_de_delimitador_de_argumentos Fin_de_linea |
+    DEF_CONESC | DEF_LLAMADO_FUNC | CICLOS
+    ;
 
 
+/*SI*/
 
 
+    SENTECIA::= Inicio_de_delimitador_de_argumentos OPERACION_RELACIONAL Fin_de_delimitador_de_argumentos |
+    Inicio_de_delimitador_de_argumentos OPERACION_DE_ATRIBUCION Fin_de_delimitador_de_argumentos |
+    Inicio_de_delimitador_de_argumentos OPE_LOGICAS Fin_de_delimitador_de_argumentos |
+     Inicio_de_delimitador_de_argumentos OPERACION_BOOLEANA Fin_de_delimitador_de_argumentos
+    ;
 
+    IF::= If SENTECIA Inicio_de_delimitador_de_bloque
+            CUERPO
+          Fin_de_delimitador_de_bloque
+    ;
 
-LLAMADOS::= Identificador Inicio_de_delimitador_de_argumentos Identificador             Fin_de_delimitador_de_argumentos Fin_de_linea | 
-Inicio_de_delimitador_de_argumentos Numero Fin_de_delimitador_de_argumentos Fin_de_linea |
-Inicio_de_delimitador_de_argumentos Fin_de_delimitador_de_argumentos Fin_de_linea
-;
+    OSI::= IF Elseif SENTECIA Inicio_de_delimitador_de_bloque
+            CUERPO
+            Fin_de_delimitador_de_bloque
+    ;
+ 
+    SINO::= OSI Else SENTECIA Inicio_de_delimitador_de_bloque
+            CUERPO
+            Fin_de_delimitador_de_bloque
+    ;
 
-CUERPO_FUNCION::= FUNC SENTENCIA_FUNC Inicio_de_delimitador_de_bloque SENTENCIAS Fin_de_delimitador_de_bloque;
+    MIENTRAS::= While SENTECIA Inicio_de_delimitador_de_bloque
+                CUERPO
+                Fin_de_delimitador_de_bloque
+    ;
 
-CUERPO_SI::= SENTENCIA_SI Inicio_de_delimitador_de_bloque OPERACIONES Fin_de_delimitador_de_bloque;
+    HASTA::= For Inicio_de_delimitador_de_argumentos VARIABLES OPERACION_RELACIONAL Fin_de_linea OPERACION_DECREMENTO_INCREMENTO Inicio_de_delimitador_de_bloque
+    CUERPO
+    Fin_de_delimitador_de_bloque
+    ;
 
-CUERPO_OSI::= CUERPO_SI SENTENCIA_OSI Inicio_de_delimitador_de_bloque OPERACIONES Fin_de_delimitador_de_bloque;
-
-CUERPO_SINO::= CUERPO_OSI SENTENCIA_SINO Inicio_de_delimitador_de_bloque OPERACIONES Fin_de_delimitador_de_bloque;
-SENTENCIAS::= SENTENCIA_CONESC | SENTENCIA_CONLEER | CUERPO_SI | CUERPO_SINO | CUERPO_OSI;
+    CICLOS::= IF | OSI | SINO | MIENTRAS | HASTA ;

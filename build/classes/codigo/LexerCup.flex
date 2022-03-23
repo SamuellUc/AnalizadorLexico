@@ -34,10 +34,14 @@ espacio=[ ,\t,\r\n]+
 
 
 /*Tipos de datos*/
-(ENT | DEC | CAR | BOOL | VAC | NULO | CONLEER | CONESC) {return new Symbol(sym.T_dato, yychar, yyline, yytext());}
-
-/* Tipo de dato String */
-( String ) {return new Symbol(sym.Cadena, yychar, yyline, yytext());}
+(ENT ) {return new Symbol(sym.Int, yychar, yyline, yytext());}
+( DEC ) {return new Symbol(sym.Double, yychar, yyline, yytext());}
+( CAR ) {return new Symbol(sym.Char, yychar, yyline, yytext());}
+( CAD ) {return new Symbol(sym.String, yychar, yyline, yytext());}
+( BOOL ) {return new Symbol(sym.Booleano, yychar, yyline, yytext());}
+( VAC ) {return new Symbol(sym.Void, yychar, yyline, yytext());}
+( CONLEER ) {return new Symbol(sym.Lectura, yychar, yyline, yytext());}
+( CONESC ) {return new Symbol(sym.Escritura, yychar, yyline, yytext());}
 
 /* Palabra reservada If */
 ( SI ) {return new Symbol(sym.If, yychar, yyline, yytext());}
@@ -110,7 +114,8 @@ FINEJEC {return new Symbol(sym.FINEJEC, yychar, yyline, yytext());}
 ( "+=" | "=" | "-="  | "*=" | "/=" | "%=" ) {return new Symbol(sym.Op_atribucion, yychar, yyline, yytext());}
 
 /*Operadores Booleanos*/
-(VER | FAL) {return new Symbol(sym.Op_boleano, yychar, yyline, yytext());}
+( VER ) {return new Symbol(sym.True, yychar, yyline, yytext());}
+( FAL ) {return new Symbol(sym.False, yychar, yyline, yytext());}
 
 
 ("#") {return new Symbol(sym.Fin_de_linea, yychar, yyline, yytext());}
@@ -124,8 +129,11 @@ FINEJEC {return new Symbol(sym.FINEJEC, yychar, yyline, yytext());}
 /*Identificador*/
 {L}({L}|{D})* {return new Symbol(sym.Identificador, yychar, yyline, yytext());}
 
-/*Numero*/
+/*Regex Tipos de datos*/
 ("(-"{D}+")")|{D}+ {return new Symbol(sym.Numero, yychar, yyline, yytext());}
+^({D}([.]{D})?)$ {return new Symbol(sym.NumeroDecimal, yychar, yyline, yytext());}
+[a-zA-Z] {return new Symbol(sym.Caracter, yychar, yyline, yytext());}
+{L}({L}|{D})* {return new Symbol(sym.Caracteres, yychar, yyline, yytext());}
 
 /*Error*/
  . {return new Symbol(sym.ERROR, yychar, yyline, yytext());}

@@ -235,10 +235,28 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     case Comillas:
                         resultado += "  <Comillas> \t" + lexer.lexeme + "\n";
                         break;
-                    case Cadena:
+                    case String:
                         resultado += "  <Tipo de dato> \t" + lexer.lexeme + "\n";
                         break;
-                    case T_dato:
+                    case Int:
+                        resultado += "  <Tipo de dato> \t" + lexer.lexeme + "\n";
+                        break;
+                    case Double:
+                        resultado += "  <Tipo de dato> \t" + lexer.lexeme + "\n";
+                        break;
+                    case Booleano:
+                        resultado += "  <Tipo de dato> \t" + lexer.lexeme + "\n";
+                        break;
+                    case Void:
+                        resultado += "  <Tipo de dato> \t" + lexer.lexeme + "\n";
+                        break;
+                    case Lectura:
+                        resultado += "  <Tipo de dato> \t" + lexer.lexeme + "\n";
+                        break;
+                    case Escritura:
+                        resultado += "  <Tipo de dato> \t" + lexer.lexeme + "\n";
+                        break;
+                    case Char:
                         resultado += "  <Tipo de dato> \t" + lexer.lexeme + "\n";
                         break;
                     case If:
@@ -340,7 +358,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     case Op_atribucion:
                         resultado += "  <Operador atribucion>\t " + lexer.lexeme + "\n";
                         break;
-                    case Op_booleano:
+                    case True:
+                        resultado += "  <Operador booleano>\t " + lexer.lexeme + "\n";
+                        break;
+                    case False:
                         resultado += "  <Operador booleano>\t " + lexer.lexeme + "\n";
                         break;
                     case Inicio_de_delimitador_de_argumentos:
@@ -369,6 +390,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         break;
                     case Numero:
                         resultado += "  <Numero> \t\t" + lexer.lexeme + "\n";
+                        break;
+                    case NumeroDecimal:
+                        resultado += "  <Numero> \t\t" + lexer.lexeme + "\n";
+                        break;
+                    case Caracteres:
+                        resultado += "  <Tipo Dato> \t\t" + lexer.lexeme + "\n";
+                        break;
+                    case Caracter:
+                        resultado += "  <Tipo Dato> \t\t" + lexer.lexeme + "\n";
                         break;
                     case ERROR:
                         resultado += "  <Simbolo no definido>\n";
