@@ -84,10 +84,10 @@ FINEJEC {lexeme=yytext(); return FINEJEC;}
 
 /*Operadores logicos*/
 ("|") {lexeme=yytext(); return Or;}
-("&") {lexeme=yytext(); return And}
-("!") {lexeme=yytext(); return Not}
-("=/=") {lexeme=yytext(); return Diferencia_logica}
-(":=") {lexeme=yytext(); return Igualdad_logica}
+("&") {lexeme=yytext(); return And;}
+("!") {lexeme=yytext(); return Not;}
+("=/=") {lexeme=yytext(); return Diferencia_logica;}
+(":=") {lexeme=yytext(); return Igualdad_logica;}
 
 /*Operadores relacionales*/
 ( ">" | "<" | "==" | "!=" | ">=" | "<=" | "<<" | ">>" ) {lexeme = yytext(); return Op_relacional;}
