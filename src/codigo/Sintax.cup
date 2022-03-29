@@ -162,7 +162,8 @@ INICIO::= Inicio_de_programa
 ;
 
 /*Declaracion de variables*/
-    VARIABLES::= VARIABLE_BOOL | VARIABLE_CAR | VARIABLE_DEC | VARIABLE_ENT | VARIABLE_OBJ
+    VARIABLES::= VARIABLE_BOOL | VARIABLE_CAR | VARIABLE_DEC | VARIABLE_ENT | VARIABLE_OBJ |
+                 VARIABLE_ENT && VARIABLE_ENT | VARIABLE_ENT && VARIABLE_CAR 
     ;
 
     VARIABLE_ENT::= Int Identificador Igual Numero Fin_de_linea |
@@ -171,7 +172,7 @@ INICIO::= Inicio_de_programa
     VARIABLE_DEC::= Double Identificador Igual NumeroDecimal Fin_de_linea |
                         Double Identificador Fin_de_linea
     ;
-    VARIABLE_CAR::= Char Identificador Igual Caracter Fin_de_linea |
+    VARIABLE_CAR::= Char Identificador Igual Identificador Fin_de_linea |
                     Char Identificador Fin_de_linea
     ;
     VARIABLE_BOOL::= Booleano Identificador Igual True Fin_de_linea |
@@ -190,31 +191,31 @@ INICIO::= Inicio_de_programa
                            OPERACION_MULTIPLICACION |
                            OPERACION_MODULO 
         ;
-        OPERACION_SUMA::= Numero Suma Numero | 
-                          Numero Suma Identificador |
-                          Identificador Suma Numero |
-                          Identificador Suma Identificador
+        OPERACION_SUMA::= Numero Suma Numero Fin_de_linea | 
+                          Numero Suma Identificador Fin_de_linea |
+                          Identificador Suma Numero Fin_de_linea |
+                          Identificador Suma Identificador Fin_de_linea
         ;
-        OPERACION_RESTA::= Numero Resta Numero |
-                           Numero Resta Identificador |
-                           Identificador Resta Numero |
-                           Identificador Resta Identificador
+        OPERACION_RESTA::= Numero Resta Numero Fin_de_linea |
+                           Numero Resta Identificador Fin_de_linea |
+                           Identificador Resta Numero Fin_de_linea |
+                           Identificador Resta Identificador Fin_de_linea
         ;
-        OPERACION_DIVISION::= Numero Division Numero |
-                              Numero Division Identificador |
-                              Identificador Division Numero |
-                              Identificador Division Identificador
+        OPERACION_DIVISION::= Numero Division Numero Fin_de_linea |
+                              Numero Division Identificador Fin_de_linea |
+                              Identificador Division Numero Fin_de_linea |
+                              Identificador Division Identificador Fin_de_linea
         ;
-        OPERACION_MULTIPLICACION::= Numero Multiplicacion Numero |
-                                    Numero Multiplicacion Identificador |
-                                    Identificador Multiplicacion Numero |
-                                    Identificador Multiplicacion Identificador
+        OPERACION_MULTIPLICACION::= Numero Multiplicacion Numero Fin_de_linea |
+                                    Numero Multiplicacion Identificador Fin_de_linea |
+                                    Identificador Multiplicacion Numero Fin_de_linea |
+                                    Identificador Multiplicacion Identificador Fin_de_linea
         
         ;
-        OPERACION_MODULO::= Numero Modulo Numero |
-                            Numero Modulo Identificador |
-                            Identificador Modulo Numero |
-                            Identificador Modulo Identificador
+        OPERACION_MODULO::= Numero Modulo Numero Fin_de_linea |
+                            Numero Modulo Identificador Fin_de_linea |
+                            Identificador Modulo Numero Fin_de_linea |
+                            Identificador Modulo Identificador Fin_de_linea
         ;
 
     /*Logica*/
@@ -252,7 +253,8 @@ INICIO::= Inicio_de_programa
                             Identificador Igual False
         ;
 
-    OPERACION_DECREMENTO_INCREMENTO::= Identificador Op_incremento | Identificador Op_decremento;
+    OPERACION_DECREMENTO_INCREMENTO::= Identificador Op_incremento | Identificador Op_decremento
+    ;
 
                             /*Sentencias*/
 

@@ -3,7 +3,7 @@ INIFUNC
 FINFUNC 
 INIVAR 
 ENT hola = 1#
-ENT holaw = 1#
+CAR holaw = asda#
 FINVAR 
 INIEJEC 
 hola+holaw#

@@ -8,11 +8,8 @@ package codigo;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.BufferedReader;
-import java.io.Reader;
 import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -435,7 +432,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
             catch (Exception ex) {
             Symbol sym = s.getS();
-            txtError.setText("Error de sintaxis. Linea: "+(sym.right)+" columna: "+(sym.left)+", Texto: \""+ sym.value + "\"");
+            txtError.setText("Error de sintaxis. Linea: "+(sym.right)+" columna: "+(sym.left)+", ERROR antes de: \""+ sym.value + "\"");
             txtError.setForeground(new Color(235, 70, 70));
             }
     }//GEN-LAST:event_btnAnalizarSintActionPerformed
